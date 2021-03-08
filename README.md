@@ -2,6 +2,7 @@
 Log avatar to file and webhook
 
 # Config File
+File is located in AvatarLog folder (Generates on first run)
 
 CanPostFriendsAvatar set true or false if you want to allow posting to webhook of your friends avatar
 
