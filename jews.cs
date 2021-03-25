@@ -179,11 +179,14 @@ namespace AvatarLoger
                                 discordEmbed.AddField("Avatar Image URL:", avi.imageUrl);
                                 discordEmbed.AddField("Avatar Thumbnail Image URL:", avi.thumbnailImageUrl);
                                 discordEmbed.WithFooter("Made by KeafyIsHere", string.IsNullOrEmpty(config.AvatarURL) ? "https://i.imgur.com/No3R2yY.jpg" : config.AvatarURL);
-                                if (avi.releaseStatus == "public")
-                                    whplpublic.Embeds.Add(discordEmbed.Build());
-                                else
-                                    whplprivate.Embeds.Add(discordEmbed.Build());
-
+                                if (APIUser.IsFriendsWith(avi.authorId) && !config.CanPostFriendsAvatar)
+                                {
+                                    if (avi.releaseStatus == "public")
+                                        whplpublic.Embeds.Add(discordEmbed.Build());
+                                    else
+                                        whplprivate.Embeds.Add(discordEmbed.Build());
+                                }
+                                
                                 if (whplprivate.Embeds.Count > 23) // Max 25 embeds but keep it 23 so theres no weird like glitches (it just helps ok ok)
                                 {
                                     PostingClient.PostAsync(config.PrivateWebhook, new StringContent(JsonConvert.SerializeObject(whplprivate), Encoding.UTF8, "application/json"));
